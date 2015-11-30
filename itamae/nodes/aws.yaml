@@ -1,5 +1,7 @@
 softether:
   master_password: "fyiwenkfjioimo"
+  psk: "gfuirefhoiwef"
+  default_hub: "always"
   dir: "/usr/local"
   vpn_resource_path: "/tmp/softether_users"
   password_length: 12
