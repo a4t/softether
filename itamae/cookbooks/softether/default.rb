@@ -26,3 +26,8 @@ execute "Delete Softether source" do
   command "rm -rf vpnserver.tar.gz"
   only_if "test -e ./vpnserver.tar.gz"
 end
+
+execute "Delete Softether source" do
+  cwd "#{node[:softether][:dir]}/vpnserver"
+  command "./vpnserver start"
+end
