@@ -27,7 +27,13 @@ execute "Delete Softether source" do
   only_if "test -e ./vpnserver.tar.gz"
 end
 
+set_password = Digest::MD5.hexdigest(node[:softether][:master_password])[0, 20]
+default_password = File.exist?("#{node[:softether][:dir]}/vpnserver/itamae_first_run") ? set_password : "";
 execute "Delete Softether source" do
   cwd "#{node[:softether][:dir]}/vpnserver"
-  command "./vpnserver start"
+  command <<EOS
+    ./vpnserver start
+    ./vpncmd localhost:443 /SERVER /PASSWORD:#{default_password} /cmd ServerPasswordSet #{set_password}
+    touch ./itamae_first_run
+EOS
 end
