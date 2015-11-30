@@ -1,5 +1,7 @@
+ServerPasswordSet <%= Digest::MD5.hexdigest(node[:softether][:master_password])[0, 20] %>
+
 <% node[:softether][:hubs].each do |hubname, hubdata| %>
-  HubCreate <%= hubname %> /PASSWORD:<%= hubdata[:password] %>
+  HubCreate <%= hubname %> /PASSWORD:<%= Digest::MD5.hexdigest(hubdata[:password])[0, 20] %>
   Hub <%= hubname %>
   <% hubdata[:users].each do |username, userdata| %>
     GroupCreate <%= userdata[:group] %> /REALNAME:<%= userdata[:group] %> /NOTE:<%= userdata[:group] %>

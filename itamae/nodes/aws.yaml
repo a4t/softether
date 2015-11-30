@@ -1,4 +1,5 @@
 softether:
+  master_password: "fyiwenkfjioimo"
   dir: "/usr/local"
   password_length: 12
   hubs:
