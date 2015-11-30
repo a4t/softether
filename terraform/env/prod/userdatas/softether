@@ -1,0 +1,30 @@
+#!/bin/bash -ex
+
+mkdir /var/log/provisioning
+
+exec > >(tee /var/log/provisioning/userdata.log|logger -t user-data -s 2>/dev/console) 2>&1
+
+apt-get -y update
+apt-get install -y git make g++
+
+# Install rbenv
+apt-get install -y libffi-dev build-essential libffi-dev libssl-dev libreadline-dev zlib1g-dev
+echo 'export RBENV_ROOT="/usr/local/rbenv"' >> ~/.bashrc
+echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' >> ~/.bashrc
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+export RBENV_ROOT="/usr/local/rbenv"
+export PATH="${RBENV_ROOT}/bin:${PATH}"
+git clone git://github.com/sstephenson/rbenv.git ${RBENV_ROOT}
+git clone git://github.com/sstephenson/ruby-build.git ${RBENV_ROOT}/plugins/ruby-build
+eval "$(rbenv init -)"
+rbenv install 2.2.0
+rbenv global 2.2.0
+
+# Git clone
+git clone git://github.com/a4t/softether.git /var/softether
+
+# Itamae
+cd /var/softether
+rbenv exec gem install bundler
+rbenv exec bundle install --path vendor/bundle
+rbenv exec bundle exec itamae local itamae/roles/softether -y itamae/nodes/aws.yaml
