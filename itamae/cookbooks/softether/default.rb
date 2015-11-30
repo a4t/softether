@@ -7,16 +7,16 @@ node.reverse_merge!({
 execute "Download Softether source" do
   cwd node[:softether][:dir]
   command <<EOS
-    wget -O vpnserver.tar.gz node[:softether][:repo] &&
+    wget -O vpnserver.tar.gz #{node[:softether][:repo]} &&
     tar xzf vpnserver.tar.gz
 EOS
   not_if "test -e ./vpnserver.tar.gz"
 end
 
-execute "Download Softether source" do
+execute "Install Softether source" do
   cwd "#{node[:softether][:dir]}/vpnserver"
   command <<EOS
-    make i_read_and_agree_the_license_agreement && \
+    make i_read_and_agree_the_license_agreement &&
     chmod 600 * && chmod 700 vpncmd vpnserver
 EOS
 end
