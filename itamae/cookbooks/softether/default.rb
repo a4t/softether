@@ -6,45 +6,42 @@ node.reverse_merge!({
 
 execute "Download Softether source" do
   cwd node[:softether][:dir]
-  command <<EOS
-    wget -O vpnserver.tar.gz #{node[:softether][:repo]}
-    tar xzf vpnserver.tar.gz
-EOS
+  command "wget -O vpnserver.tar.gz #{node[:softether][:repo]}"
   not_if "test -e ./vpnserver.tar.gz"
 end
 
 execute "Reset Softether" do
   cwd node[:softether][:dir]
-  command <<EOS
-    pkill -f "vpnserver"
-    rm -rf #{node[:softether][:dir]}/vpnserver
-EOS
+  command "pkill -f vpnserver || echo 'no process'"
+end
+
+execute "Delete Softether" do
+  cwd node[:softether][:dir]
+  command "rm -rf #{node[:softether][:dir]}/vpnserver && sleep 10"
 end
 
 execute "Install Softether source" do
-  cwd "#{node[:softether][:dir]}/vpnserver"
+  cwd "#{node[:softether][:dir]}"
   command <<EOS
+    tar xzf vpnserver.tar.gz
+    cd vpnserver
     make i_read_and_agree_the_license_agreement
     chmod 600 * && chmod 700 vpncmd vpnserver
 EOS
 end
 
-execute "Delete Softether source" do
+execute "Delete Softether source tar.gz" do
   cwd node[:softether][:dir]
   command "rm -rf vpnserver.tar.gz"
-  only_if "test -e ./vpnserver.tar.gz"
 end
 
 execute "Softether start" do
   cwd "#{node[:softether][:dir]}/vpnserver"
-  command './vpnserver start'
+  command './vpnserver start && sleep 10' # 起動まで時間かかるので調整
 end
 
 master_password = Digest::MD5.hexdigest(node[:softether][:master_password])[0, 20]
 execute "Set Softether master password" do
-  cwd "#{node[:softether][:dir]}/vpnserver"
-  command <<EOS
-    ./vpncmd localhost:443 /SERVER /cmd ServerPasswordSet #{master_password}
-    touch ./itamae_first_run
-EOS
+  cwd "#{node[:softether][:dir]}/vpnserver" # すぐに起動しないため
+  command "./vpncmd localhost:443 /SERVER /cmd ServerPasswordSet #{master_password}"
 end
