@@ -8,7 +8,7 @@ template node[:softether][:vpn_resource_path] do
 end
 
 server_password = Digest::MD5.hexdigest(node[:softether][:master_password])[0, 20]
-execute "Delete Softether source" do
+execute "Add Softether resource" do
   cwd "#{node[:softether][:dir]}/vpnserver"
   command "./vpncmd localhost:443 /SERVER /PASSWORD:#{server_password} /IN:#{node[:softether][:vpn_resource_path]}"
 end
