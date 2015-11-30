@@ -1,2 +1,4 @@
 softether:
   dir: "/usr/local"
+  users:
+    onishi: "hoge"
