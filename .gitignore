@@ -37,3 +37,7 @@ build/
 # Terraform
 **/terraform.tfstate
 **/terraform.tfstate.backup
+
+# Itamae
+itamae/nodes/**
+!itamae/nodes/sample.yaml
