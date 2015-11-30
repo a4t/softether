@@ -4,6 +4,16 @@ resource "aws_security_group" "softether" {
   description = "vpn ${var.envname} softether"
 }
 
+resource "aws_security_group_rule" "softether_allow_all_egress" {
+  type = "egress"
+  from_port = 0
+  to_port = 0
+  protocol = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = "${aws_security_group.softether.id}"
+}
+
 resource "aws_security_group_rule" "softether_tcp443_ingress" {
   type = "ingress"
   from_port = 443
