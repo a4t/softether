@@ -1,4 +1,31 @@
 softether:
   dir: "/usr/local"
-  users:
-    onishi: "hoge"
+  password_length: 12
+  hubs:
+    always:
+      password: "hogehoge"
+      users:
+        shigure_onishi1:
+          group: "infra_enginner"
+          password: "fhiowfhiw"
+          note: "master_user"
+        shigure_onishi2:
+          group: "server_enginner"
+          password: "yhiotn3rlgj"
+        shigure_onishi3:
+          group: "app_enginner"
+          password: "hgiorwhfnkbf"
+          expire: "2015/11/30 19:30:00"
+    temp:
+      password: "fugafuga"
+      users:
+        shigure_onishi4:
+          group: "infra_enginner"
+          password: "yhfnlwefjiowe"
+          note: "master_user"
+        shigure_onishi5:
+          group: "server_enginner"
+          password: "bhvownfoieif"
+        shigure_onishi6:
+          group: "app_enginner"
+          password: "gfygiodmpwe"
