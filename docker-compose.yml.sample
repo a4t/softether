@@ -1,0 +1,14 @@
+networks: {}
+version: '2.0'
+
+services:
+  terraform:
+    build: ./
+    volumes:
+      - ./terraform/:/terraform
+    working_dir: "/terraform/env/tmp"
+    environment:
+      - AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxxxxxxxx
+      - AWS_SECRET_ACCESS_KEY=yyyyyyyyyyyyyyyyyyyyyyyy
+      - AWS_DEFAULT_REGION=ap-northeast-1
+      - TF_VAR_developers_ip="192.168.11.1,192.168.11.2" 
