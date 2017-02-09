@@ -1,6 +1,6 @@
 resource "aws_instance" "softether" {
-  ami = "${var.ami_id.softether}"
-  instance_type = "${var.instance_type.softether}"
+  ami = "${var.ami_id["softether"]}"
+  instance_type = "${var.instance_type["softether"]}"
   iam_instance_profile = "${aws_iam_instance_profile.softether.name}"
 
   subnet_id = "${aws_subnet.softether_server_zone1.id}"
