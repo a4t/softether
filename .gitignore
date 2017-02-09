@@ -41,3 +41,6 @@ build/
 # Itamae
 itamae/nodes/**
 !itamae/nodes/sample.yaml
+
+# Docker
+docker-compose.yml
