@@ -36,3 +36,5 @@ Shared Secret Key = xxxxxxxxxxxxxxxx
 ```
 $ cat /tmp/softether_users
 ```
+
+## Mac client setting
