@@ -1,5 +1,9 @@
 # softether
 
+## Requirement
+- Ruby ~> 2.3
+- Bundler ~> 1.16.1
+
 ## Install
 
 ```
