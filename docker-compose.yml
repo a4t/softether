@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ruby:
+    build: .
+    volumes:
+      - ./:/softether
+    working_dir: /softether
+    command: sleep 1000000000000000000
