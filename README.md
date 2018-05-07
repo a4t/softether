@@ -3,6 +3,7 @@
 ## Requirement
 - Ruby ~> 2.3
 - Bundler ~> 1.16.1
+- Open port 5555
 
 ## Install
 
